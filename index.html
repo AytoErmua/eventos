@@ -52,13 +52,16 @@
     OneSignalDeferred.push(async function(OneSignal) {
       await OneSignal.init({
         appId: "024a03b7-02f0-478d-b18f-6a0e4ce23291",
+        // ESTA LINEA INDICA A ONESIGNAL LA RUTA EXACTA DE TU PROYECTO
+        serviceWorkerParam: { scope: "/eventos/" },
+        serviceWorkerPath: "OneSignalSDKWorker.js"
       });
     });
 
-    // Esta función obliga a OneSignal a abrir la ventana de suscripción
     function suscribirse() {
       window.OneSignalDeferred = window.OneSignalDeferred || [];
       OneSignalDeferred.push(function(OneSignal) {
+        // Forzamos al sistema a lanzar el aviso ignorando cualquier bloqueo previo
         OneSignal.showSlidedownPrompt({ force: true });
       });
     }
