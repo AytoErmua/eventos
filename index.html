@@ -46,26 +46,26 @@
     }
   </style>
 
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+ <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
   <script>
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     OneSignalDeferred.push(async function(OneSignal) {
       await OneSignal.init({
         appId: "024a03b7-02f0-478d-b18f-6a0e4ce23291",
-        // Forzamos el registro directo en subcarpeta omitiendo service workers estrictos de raíz
-        allowLocalhostAsSecureOrigin: true
+        // Estas dos líneas enlazan perfectamente con lo que has guardado en Advanced Push Settings
+        serviceWorkerParam: { scope: "/eventos/" },
+        serviceWorkerPath: "OneSignalSDKWorker.js"
       });
     });
 
     function suscribirse() {
       window.OneSignalDeferred = window.OneSignalDeferred || [];
       OneSignalDeferred.push(function(OneSignal) {
-        // Obliga a registrar el navegador
-        OneSignal.login(String(Date.now())); 
+        // Lanza la petición limpia usando la ruta de la subcarpeta
         OneSignal.showSlidedownPrompt({ force: true });
       });
     }
-  </script>
+  </script>  
 </head>
 <body>
  
