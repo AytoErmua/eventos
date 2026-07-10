@@ -29,7 +29,7 @@
     h1 { color: #1e293b; font-size: 24px; margin-bottom: 10px; }
     p { color: #64748b; font-size: 15px; line-height: 1.5; margin-bottom: 25px; }
     
-    .onesignal-custom-launcher {
+    .btn-notificacion {
       background-color: #2563eb;
       color: white;
       border: none;
@@ -39,6 +39,10 @@
       border-radius: 8px;
       cursor: pointer;
       width: 100%;
+      transition: background-color 0.2s;
+    }
+    .btn-notificacion:hover {
+      background-color: #1d4ed8;
     }
   </style>
 
@@ -51,11 +55,11 @@
       });
     });
 
-    // Función para activar el prompt nativo al pulsar el botón
-    function registrarUsuario() {
+    // Esta función obliga a OneSignal a abrir la ventana de suscripción
+    function suscribirse() {
       window.OneSignalDeferred = window.OneSignalDeferred || [];
-      OneSignalDeferred.push(async function(OneSignal) {
-        OneSignal.showSlidedownPrompt();
+      OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.showSlidedownPrompt({ force: true });
       });
     }
   </script>
@@ -65,7 +69,7 @@
   <div class="card">
     <h1>Alertas de Eventos</h1>
     <p>Suscríbete para recibir notificaciones push en tiempo real en tu teléfono móvil cada vez que publiquemos un nuevo evento.</p>
-    <button onclick="registrarUsuario()" class="onesignal-custom-launcher">🔔 Activar Notificaciones</button>
+    <button onclick="suscribirse()" class="btn-notificacion">🔔 Activar Notificaciones</button>
   </div>
  
 </body>
